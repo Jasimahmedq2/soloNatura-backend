@@ -9,6 +9,10 @@ export type IUser = {
   birthday: string;
   resetToken: string | null;
   resetTokenExpiration: Date | null;
+  location?: {
+    city: string;
+    address: string;
+  };
 };
 
 export type ILogin = {

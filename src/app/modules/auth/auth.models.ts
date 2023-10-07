@@ -45,6 +45,16 @@ const UserModel = new Schema<IUser>({
   birthday: {
     type: String,
   },
+  location: {
+    city: {
+      type: String,
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+  },
 });
 
 export const User = model<IUser>("user", UserModel);

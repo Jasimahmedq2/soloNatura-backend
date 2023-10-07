@@ -19,8 +19,9 @@ const orderModel = new Schema<IOrder>({
     type: Number,
     required: true,
   },
-  customerName: {
-    type: String,
+  customer: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
     required: true,
   },
   orderDate: {

@@ -5,13 +5,17 @@ const productCategoryModel = new Schema<ICategories>({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
-  products: [
-    {
-      type: Types.ObjectId,
-      ref: "product",
-    },
-  ],
+  products: {
+    type: [
+      {
+        type: Types.ObjectId,
+        ref: "product",
+      },
+    ],
+    default: [],
+  },
 });
 
 export const productCategory = model<ICategories>(

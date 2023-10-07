@@ -8,6 +8,6 @@ export type IOrderProduct = {
 export type IOrder = {
   products: IOrderProduct[];
   totalAmount: number;
-  customerName: string;
+  customer: Types.ObjectId;
   orderDate: Date;
 };
