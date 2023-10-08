@@ -1,4 +1,5 @@
 import ApiError from "../../../errors/apiError";
+import { ICategories } from "./category.interfaces";
 import { productCategory } from "./category.model";
 
 const createCategory = async (payload: any) => {
@@ -15,7 +16,15 @@ const retrieveCategory = async () => {
   return result;
 };
 
+const retrieveProductWithTab = async (
+  tabs: string
+): Promise<ICategories[] | null> => {
+  const result = await productCategory.find({ categoryType: tabs });
+  return result;
+};
+
 export const CategoryServices = {
   createCategory,
   retrieveCategory,
+  retrieveProductWithTab,
 };

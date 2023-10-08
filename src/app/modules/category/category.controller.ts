@@ -38,7 +38,27 @@ const retrieveCategory = async (
   }
 };
 
+const retrieveProductWithTab = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { tabs } = req.params;
+    const result = await CategoryServices.retrieveProductWithTab(tabs);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "successfully retrieve  product according to tab option",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const CategoryControllers = {
   createCategory,
   retrieveCategory,
+  retrieveProductWithTab,
 };

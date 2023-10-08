@@ -7,6 +7,9 @@ const productCategoryModel = new Schema<ICategories>({
     required: true,
     unique: true,
   },
+  categoryType: {
+    type: String,
+  },
   products: {
     type: [
       {
