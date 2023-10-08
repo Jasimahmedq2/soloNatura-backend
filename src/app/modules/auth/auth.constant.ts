@@ -1,1 +1,1 @@
-export const UserRoleConstant: string[] = ["admin", "user"];
+export const UserRoleConstant: string[] = ["admin", "customer"];

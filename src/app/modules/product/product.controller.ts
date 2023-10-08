@@ -20,6 +20,46 @@ const createProduct = async (
   }
 };
 
+const retrieveProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { searchTerm } = req.query;
+    const result = await productServices.retrieveProduct(searchTerm as string);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "retrieve product by search",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const retrieveSingleProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const result = await productServices.retrieveSingleProduct(id);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "successfully retrieve a product",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const productControllers = {
   createProduct,
+  retrieveProduct,
+  retrieveSingleProduct,
 };

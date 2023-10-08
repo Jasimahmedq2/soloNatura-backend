@@ -30,17 +30,18 @@ const createUser = async (payload: IUser) => {
 
   const isExistUser = await User.findOne({
     email: payload.email,
-    phoneNo: payload.phoneNo,
   });
 
-  if (isExistUser) {
+  if (isExistUser && isExistUser.isVerified) {
+    throw new ApiError(400, "already you have a account please login");
+  } else if (isExistUser) {
     const mailOptions = {
       from: config.my_email,
       to: payload.email,
       subject: "verify your email",
       html: `
-    <P>Hello ${payload.name}, please verify your email</p>
-    <a href="https://stupendous-syrniki-758b36.netlify.app/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
+    <P>Hello there, please verify your email</p>
+    <a href="http://localhost:3000/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
     };
     const result = await transporter.sendMail(mailOptions);
 
@@ -53,8 +54,8 @@ const createUser = async (payload: IUser) => {
       to: payload.email,
       subject: "verify your email",
       html: `
-    <P>Hello ${payload.name}, please verify your email</p>
-    <a href="https://stupendous-syrniki-758b36.netlify.app/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
+    <P>Hello there, please verify your email</p>
+    <a href="http://localhost:3000/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
     };
     const result = await transporter.sendMail(mailOptions);
     console.log({ createSecret });
