@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export type IUser = {
   name: string;
   email: string;
@@ -13,6 +15,7 @@ export type IUser = {
     city: string;
     address: string;
   };
+  favorites?: Types.ObjectId[];
 };
 
 export type ILogin = {

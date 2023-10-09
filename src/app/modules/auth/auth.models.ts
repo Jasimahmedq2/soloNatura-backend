@@ -53,6 +53,15 @@ const UserModel = new Schema<IUser>({
       default: "",
     },
   },
+  favorites: {
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "product",
+      },
+    ],
+    default: [],
+  },
 });
 
 export const User = model<IUser>("user", UserModel);
