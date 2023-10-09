@@ -1,33 +1,22 @@
 import { Schema, model, Types } from "mongoose";
 import { IOrder } from "./order.interfaces";
 
-const orderModel = new Schema<IOrder>({
-  products: [
-    {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: "product",
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
+const orderModel = new Schema<IOrder>(
+  {
+    orderInfo: {
+      type: Schema.Types.ObjectId,
+      ref: "orderInfo",
     },
-  ],
-  totalAmount: {
-    type: Number,
-    required: true,
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "cart",
+    },
+    orderDate: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  customer: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-    required: true,
-  },
-  orderDate: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { timestamps: true }
+);
 
 export const Order = model<IOrder>("order", orderModel);

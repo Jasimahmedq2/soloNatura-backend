@@ -1,13 +1,7 @@
 import { Types } from "mongoose";
 
-export type IOrderProduct = {
-  product: Types.ObjectId;
-  quantity: number;
-};
-
 export type IOrder = {
-  products: IOrderProduct[];
-  totalAmount: number;
-  customer: Types.ObjectId;
+  orderInfo: Types.ObjectId;
+  cart: Types.ObjectId;
   orderDate: Date;
 };

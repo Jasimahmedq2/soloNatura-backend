@@ -27,7 +27,7 @@ const productModel = new Schema<IProduct>({
     type: Number,
     default: 0,
   },
-});
+},{timestamps: true});
 
 productModel.post("save", async function () {
   const product = this;
