@@ -1,9 +1,15 @@
 import express from "express";
 import { productControllers } from "./product.controller";
+import ValidateRequest from "../../middleware/validateRequest";
+import { productValidation } from "./product.validation";
 
 const router = express.Router();
 
-router.post("/create-product", productControllers.createProduct);
+router.post(
+  "/create-product",
+  ValidateRequest(productValidation.createProduct),
+  productControllers.createProduct
+);
 router.get("/", productControllers.retrieveProduct);
 router.get("/:id", productControllers.retrieveSingleProduct);
 

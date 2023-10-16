@@ -7,6 +7,7 @@ const createCategory = async (
   res: Response,
   next: NextFunction
 ) => {
+ 
   try {
     const result = await CategoryServices.createCategory(req.body);
     sendResponse(res, {
@@ -25,6 +26,7 @@ const retrieveCategory = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("hit")
   try {
     const result = await CategoryServices.retrieveCategory();
     sendResponse(res, {
@@ -43,6 +45,7 @@ const retrieveProductWithTab = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("hit 2")
   try {
     const { tabs } = req.params;
     const result = await CategoryServices.retrieveProductWithTab(tabs);

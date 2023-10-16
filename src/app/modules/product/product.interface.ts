@@ -7,4 +7,5 @@ export type IProduct = {
   price: number;
   category: Types.ObjectId;
   rating?: number;
+  image: string;
 };

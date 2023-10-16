@@ -12,7 +12,7 @@ const createCategory = async (payload: any) => {
 };
 
 const retrieveCategory = async () => {
-  const result = await productCategory.find({}).populate("products");
+  const result = await productCategory.find({}).populate('products');
   return result;
 };
 

@@ -57,7 +57,7 @@ const resetPasswordRequest = async (
 ) => {
   try {
     const { email } = req.body;
-    console.log({ email: email });
+    console.log({ email: email, body: req.body });
     const result = await AuthUserServices.resetPasswordRequest(email);
 
     sendResponse(res, {

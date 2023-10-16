@@ -1,14 +1,14 @@
 import { Types } from "mongoose";
 
-type CartProduct = {
+export type CartProduct = {
   product: Types.ObjectId;
   quantity: number;
 };
 
 export type ICart = {
+  save(): unknown;
   user: Types.ObjectId;
   products: CartProduct[];
-  totalPrice: number;
   createdAt: Date;
   updatedAt: Date;
 };

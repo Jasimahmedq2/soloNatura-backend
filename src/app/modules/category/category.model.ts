@@ -20,6 +20,10 @@ const productCategoryModel = new Schema<ICategories>(
       ],
       default: [],
     },
+    image: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
