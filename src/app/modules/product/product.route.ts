@@ -11,6 +11,7 @@ router.post(
   productControllers.createProduct
 );
 router.get("/", productControllers.retrieveProduct);
+router.get("/supplements", productControllers.retrieveSupplementsProduct);
 router.get("/:id", productControllers.retrieveSingleProduct);
 
 export const productRoutes = router;

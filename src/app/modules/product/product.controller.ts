@@ -38,6 +38,24 @@ const retrieveProduct = async (
     next(error);
   }
 };
+const retrieveSupplementsProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { searchTerm } = req.query;
+    const result = await productServices.retrieveSupplementsProduct();
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "retrieve product by search",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const retrieveSingleProduct = async (
   req: Request,
@@ -62,4 +80,5 @@ export const productControllers = {
   createProduct,
   retrieveProduct,
   retrieveSingleProduct,
+  retrieveSupplementsProduct,
 };

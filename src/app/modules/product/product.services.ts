@@ -1,3 +1,4 @@
+import { productCategory } from "../category/category.model";
 import { productSearchAbleField } from "./product.constant";
 import { IProduct } from "./product.interface";
 import { Product } from "./product.model";
@@ -30,6 +31,19 @@ const retrieveProduct = async (
   return result;
 };
 
+const retrieveSupplementsProduct = async () => {
+  const categories = await productCategory
+    .find({ categoryType: "Cosmesi" })
+    .populate("products");
+
+  const matchedProducts: any[] = [];
+
+  categories.forEach((category) => {
+    matchedProducts.push(...category.products);
+  });
+  return matchedProducts;
+};
+
 const retrieveSingleProduct = async (id: string): Promise<IProduct | null> => {
   const result = await Product.findById(id);
   return result;
@@ -39,4 +53,5 @@ export const productServices = {
   createProduct,
   retrieveProduct,
   retrieveSingleProduct,
+  retrieveSupplementsProduct,
 };
