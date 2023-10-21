@@ -31,9 +31,9 @@ const retrieveProduct = async (
   return result;
 };
 
-const retrieveSupplementsProduct = async () => {
+const retrieveSupplementsProduct = async (CategoryType: string) => {
   const categories = await productCategory
-    .find({ categoryType: "Cosmesi" })
+    .find({ categoryType: CategoryType })
     .populate("products");
 
   const matchedProducts: any[] = [];

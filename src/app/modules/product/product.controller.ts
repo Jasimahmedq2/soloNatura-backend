@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { productServices } from "./product.services";
 import sendResponse from "../../../shared/sendResponse";
+import ApiError from "../../../errors/apiError";
 
 const createProduct = async (
   req: Request,
@@ -44,12 +45,17 @@ const retrieveSupplementsProduct = async (
   next: NextFunction
 ) => {
   try {
-    const { searchTerm } = req.query;
-    const result = await productServices.retrieveSupplementsProduct();
+    const { categoryType } = req?.query;
+    if (!categoryType) {
+      throw new ApiError(400, "something went wrong");
+    }
+    const result = await productServices.retrieveSupplementsProduct(
+      categoryType as string
+    );
     sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "retrieve product by search",
+      message: "retrieve product by categoryType",
       data: result,
     });
   } catch (error) {

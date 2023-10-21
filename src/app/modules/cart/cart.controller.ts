@@ -18,7 +18,47 @@ const AddToCart = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+const getCartWithPrices = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { userId } = (req as any).user;
+  try {
+    const result = await CartServices.getCartWithPrices(userId);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "successfully get cart products",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+const removeQuantityFromCart = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { userId } = (req as any).user;
+  const { productId } = req.body;
+  console.log(userId, productId)
+  try {
+    const result = await CartServices.removeQuantityFromCart(userId, productId);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "successfully remove a quantity from cart product",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const CartController = {
   AddToCart,
+  getCartWithPrices,
+  removeQuantityFromCart,
 };

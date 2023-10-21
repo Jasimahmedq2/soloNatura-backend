@@ -5,20 +5,37 @@ import ApiError from "../../../errors/apiError";
 import { Product } from "../product/product.model";
 
 const AddToCart = async (userId: Types.ObjectId, payload: CartProduct) => {
-  const isCartExist: ICart | null = await Cart.findOne({ user: userId });
+  try {
+    if (!userId || !payload || !payload.product) {
+      throw new ApiError(401, "Invalid input data");
+    }
 
-  if (!isCartExist) {
-    const cartInfo = {
-      user: userId,
-      products: [payload],
-    };
-    const newCart = new Cart(cartInfo);
-    await newCart.save();
-    return newCart;
-  } else {
-    isCartExist.products.push(payload);
-    await isCartExist.save();
-    return isCartExist;
+    const cartExist = await Cart.findOne({ user: userId });
+
+    if (!cartExist) {
+      const newCart = new Cart({
+        user: userId,
+        products: [{ product: payload.product, quantity: payload?.quantity }],
+      });
+      await newCart.save();
+    } else {
+      const existingItem = cartExist.products.find(
+        (item) => item.product.toString() === payload.product.toString()
+      );
+
+      if (existingItem) {
+        existingItem.quantity += payload?.quantity;
+      } else {
+        cartExist.products.push({
+          product: payload.product,
+          quantity: payload?.quantity,
+        });
+      }
+
+      await cartExist.save();
+    }
+  } catch (error) {
+    throw new ApiError(401, "error occurred");
   }
 };
 
@@ -88,17 +105,41 @@ const removeQuantityFromCart = async (
   return cart;
 };
 
-const retrieveCartProduct = async (userId: Types.ObjectId) => {
-  const cart = await Cart.findOne({ user: userId }).populate("products");
-  if (!cart) {
-    throw new ApiError(404, "cart not found");
+
+
+const getCartWithPrices = async (userId: Types.ObjectId) => {
+  try {
+    const cart = await Cart.findOne({ user: userId }).populate(
+      "products.product"
+    );
+
+    if (!cart) {
+      throw new ApiError(404, "cart not found");
+    }
+
+    let totalPrice = 0;
+
+    for (const item of cart.products) {
+      if (item.product) {
+        const product = await Product.findById(item.product);
+
+        if (product) {
+          totalPrice += Number(product.price) * Number(item.quantity);
+        }
+      }
+    }
+
+    await cart.save();
+
+    return { cart, totalPrice };
+  } catch (error) {
+    throw new ApiError(401, "error  occurred");
   }
-  return cart;
 };
 
 export const CartServices = {
   AddToCart,
   increaseQuantity,
   removeQuantityFromCart,
-  retrieveCartProduct,
+  getCartWithPrices,
 };
