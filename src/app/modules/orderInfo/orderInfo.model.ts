@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 import { IOrderInfo } from "./orderInfo.interfaces";
 
 const orderInfoModel = new Schema<IOrderInfo>({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
   name: {
     type: String,
     required: true,
@@ -40,6 +44,10 @@ const orderInfoModel = new Schema<IOrderInfo>({
   },
   birthday: {
     type: Date,
+  },
+  isFilled: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -1,4 +1,7 @@
+import { Types } from "mongoose";
+
 export type IOrderInfo = {
+  user: Types.ObjectId;
   name: string;
   surname: string;
   nation: string;
@@ -9,4 +12,5 @@ export type IOrderInfo = {
   phoneNumber: string;
   email: string;
   birthday?: Date;
+  isFilled: boolean;
 };

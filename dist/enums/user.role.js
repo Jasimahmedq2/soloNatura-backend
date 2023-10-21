@@ -4,5 +4,5 @@ exports.UserRoles = void 0;
 var UserRoles;
 (function (UserRoles) {
     UserRoles["ADMIN"] = "admin";
-    UserRoles["USER"] = "user";
+    UserRoles["CUSTOMER"] = "customer";
 })(UserRoles || (exports.UserRoles = UserRoles = {}));

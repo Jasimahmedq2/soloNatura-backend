@@ -1,0 +1,38 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CategoryServices = void 0;
+const apiError_1 = __importDefault(require("../../../errors/apiError"));
+const category_model_1 = require("./category.model");
+const createCategory = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const existCategory = yield category_model_1.productCategory.findOne({ name: payload === null || payload === void 0 ? void 0 : payload.name });
+    if (existCategory) {
+        throw new apiError_1.default(400, `${payload.name} already created`);
+    }
+    const result = yield category_model_1.productCategory.create(payload);
+    return result;
+});
+const retrieveCategory = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield category_model_1.productCategory.find({}).populate('products');
+    return result;
+});
+const retrieveProductWithTab = (tabs) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield category_model_1.productCategory.find({ categoryType: tabs });
+    return result;
+});
+exports.CategoryServices = {
+    createCategory,
+    retrieveCategory,
+    retrieveProductWithTab,
+};

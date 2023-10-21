@@ -5,8 +5,9 @@ import { IOrderInfo } from "./orderInfo.interfaces";
 
 const addInfoInDb = async (req: Request, res: Response, next: NextFunction) => {
   const { ...orderInfo } = req.body;
+  const { userId } = (req as any).user;
   try {
-    const result = await OrderInfoServices.addInfoInDb(orderInfo);
+    const result = await OrderInfoServices.addInfoInDb(userId, orderInfo);
     sendResponse<IOrderInfo>(res, {
       statusCode: 200,
       success: true,
