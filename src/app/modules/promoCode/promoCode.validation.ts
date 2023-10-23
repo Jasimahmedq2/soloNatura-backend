@@ -8,7 +8,7 @@ const addPromoCode = z.object({
     discountPercentage: z.number({
       required_error: "discountPercentage  is required",
     }),
-    validUntil: z.date({
+    validUntil: z.string({
       required_error: "validUntil is required",
     }),
   }),

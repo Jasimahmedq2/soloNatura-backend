@@ -13,4 +13,5 @@ export type IOrderInfo = {
   email: string;
   birthday?: Date;
   isFilled: boolean;
+  deferentShipAddress: boolean;
 };

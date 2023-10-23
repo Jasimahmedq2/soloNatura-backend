@@ -18,5 +18,10 @@ router.get(
   auth(UserRoles.ADMIN),
   PromoCodeControllers.getPromoCode
 );
+router.post(
+  "/apply-promo-code",
+  auth(UserRoles.ADMIN, UserRoles.CUSTOMER),
+  PromoCodeControllers.applyPromoCode
+);
 
 export const promoCodeRoutes = router;

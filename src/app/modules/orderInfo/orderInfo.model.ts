@@ -49,6 +49,11 @@ const orderInfoModel = new Schema<IOrderInfo>({
     type: Boolean,
     default: false,
   },
+  deferentShipAddress: {
+    type: Boolean,
+    default: false
+  }
+
 });
 
 export const OrderInfo = model<IOrderInfo>("orderInfo", orderInfoModel);

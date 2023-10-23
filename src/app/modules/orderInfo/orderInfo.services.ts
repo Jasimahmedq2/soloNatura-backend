@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 import { IOrderInfo } from "./orderInfo.interfaces";
 import { OrderInfo } from "./orderInfo.model";
+import { IOrder } from "../order/order.interfaces";
 
 const addInfoInDb = async (
   userId: Types.ObjectId,
@@ -23,6 +24,14 @@ const addInfoInDb = async (
   }
 };
 
+const getShippingAddress = async (
+  userId: string
+): Promise<IOrderInfo | null> => {
+  const result = await OrderInfo.findOne({ user: userId });
+  return result;
+};
+
 export const OrderInfoServices = {
   addInfoInDb,
+  getShippingAddress,
 };

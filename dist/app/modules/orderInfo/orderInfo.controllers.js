@@ -28,8 +28,9 @@ const orderInfo_services_1 = require("./orderInfo.services");
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const addInfoInDb = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const orderInfo = __rest(req.body, []);
+    const { userId } = req.user;
     try {
-        const result = yield orderInfo_services_1.OrderInfoServices.addInfoInDb(orderInfo);
+        const result = yield orderInfo_services_1.OrderInfoServices.addInfoInDb(userId, orderInfo);
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,

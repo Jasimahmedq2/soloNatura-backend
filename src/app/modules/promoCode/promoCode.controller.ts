@@ -39,8 +39,27 @@ const getPromoCode = async (
     next(error);
   }
 };
+const applyPromoCode = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { code, totalPrice } = req.body;
+    const result = await PromoCodeServices.applyPromoCode(code, totalPrice);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "successfully retrieve discounted price",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const PromoCodeControllers = {
   addPromoCode,
   getPromoCode,
+  applyPromoCode,
 };

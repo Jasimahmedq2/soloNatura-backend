@@ -11,9 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderInfoServices = void 0;
 const orderInfo_model_1 = require("./orderInfo.model");
-const addInfoInDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield orderInfo_model_1.OrderInfo.create(payload);
-    return result;
+const addInfoInDb = (userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const existShipping = yield orderInfo_model_1.OrderInfo.findOne({ user: userId });
+    if (existShipping && existShipping.isFilled) {
+        console.log("exist shipping address", payload);
+        const result = yield orderInfo_model_1.OrderInfo.findOneAndUpdate({ user: userId }, Object.assign({}, payload));
+        return result;
+    }
+    else {
+        console.log(" shipping address not exist");
+        const info = Object.assign(Object.assign({}, payload), { user: userId, isFilled: true });
+        const result = yield orderInfo_model_1.OrderInfo.create(info);
+        return result;
+    }
 });
 exports.OrderInfoServices = {
     addInfoInDb,

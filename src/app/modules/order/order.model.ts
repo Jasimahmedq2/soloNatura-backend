@@ -1,22 +1,23 @@
-import { Schema, model, Types } from "mongoose";
-import { IOrder } from "./order.interfaces";
+import { Schema, model } from "mongoose";
+import { IProductOrder } from "./order.interfaces";
 
-const orderModel = new Schema<IOrder>(
+const orderSchema = new Schema<IProductOrder>(
   {
-    orderInfo: {
-      type: Schema.Types.ObjectId,
-      ref: "orderInfo",
-    },
-    cart: {
-      type: Schema.Types.ObjectId,
-      ref: "cart",
-    },
-    orderDate: {
-      type: Date,
-      default: Date.now,
+    user: { type: Schema.Types.ObjectId, ref: "user" },
+    items: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: "product" },
+        quantity: Number,
+      },
+    ],
+    total: Number,
+    status: {
+      type: String,
+      enum: ["pending", "accepted", "completed", "canceled"],
+      default: "pending",
     },
   },
   { timestamps: true }
 );
 
-export const Order = model<IOrder>("order", orderModel);
+export const Order = model<IProductOrder>("order", orderSchema);

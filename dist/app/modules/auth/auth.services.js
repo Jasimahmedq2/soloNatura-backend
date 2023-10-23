@@ -43,7 +43,7 @@ const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
             subject: "verify your email",
             html: `
     <P>Hello there, please verify your email</p>
-    <a href="http://localhost:3000/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
+    <a href="https://melodic-frangollo-960dd1.netlify.app/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
         };
         const result = yield transporter.sendMail(mailOptions);
         return result;
@@ -56,7 +56,7 @@ const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
             subject: "verify your email",
             html: `
     <P>Hello there, please verify your email</p>
-    <a href="http://localhost:3000/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
+    <a href="https://melodic-frangollo-960dd1.netlify.app/verify/${createSecret}/" target="_blank">Click here to verify your email</a>`,
         };
         const result = yield transporter.sendMail(mailOptions);
         console.log({ createSecret });
@@ -108,7 +108,7 @@ const resetPasswordRequest = (email) => __awaiter(void 0, void 0, void 0, functi
     user.resetToken = resetToken;
     user.resetTokenExpiration = resetTokenExpiration;
     yield user.save();
-    const resetUrl = `http://localhost:3000/set-password/${resetToken}/`;
+    const resetUrl = `https://melodic-frangollo-960dd1.netlify.app/set-password/${resetToken}/`;
     const mailOptions = {
         from: "jasim.dev48@gmail.com",
         to: email,

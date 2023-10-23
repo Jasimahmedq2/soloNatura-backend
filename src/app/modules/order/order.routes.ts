@@ -1,18 +1,18 @@
 import express from "express";
-import { OrderInfoControllers } from "./orderInfo.controllers";
 import auth from "../../middleware/auth";
 import { UserRoles } from "../../../enums/user.role";
+import { OrderControllers } from "./order.controller";
 const router = express.Router();
 
 router.post(
-  "/add-information",
+  "/create-order",
   auth(UserRoles.ADMIN, UserRoles.CUSTOMER),
-  OrderInfoControllers.addInfoInDb
+  OrderControllers.createOrder
 );
 router.get(
-  "/get-information",
+  "/user-order",
   auth(UserRoles.ADMIN, UserRoles.CUSTOMER),
-  OrderInfoControllers.getShippingAddress
+  OrderControllers.retrieveUserOrder
 );
 
-export const OrderInfoRoutes = router;
+export const orderRoutes = router;
